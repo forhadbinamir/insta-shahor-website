@@ -1,4 +1,5 @@
 let posts = [];
+console.log(posts)
 
 const likedPostsId = [];
 const reportedPostsId = [];
@@ -10,7 +11,6 @@ const getLikedPosts = () => {
 const getReportedPosts = () => {
   return posts.filter((post) => reportedPostsId.includes(post.id));
 };
-
 const isLiked = (id) => {
   return likedPostsId?.length && !!likedPostsId.includes(id);
 };
@@ -35,23 +35,19 @@ const switchTab = (id) => {
     document.getElementById("posts").style.display = "grid";
     document.getElementById("liked").style.display = "none";
     document.getElementById("reported").style.display = "none";
+    addToLiked()
+    reportPost()
   } else if (id === "liked") {
-    document.getElementById("liked").style.display = "block";
-    document.getElementById("posts").style.display = "none";
-    document.getElementById("reported").style.display = "none";
-
     displayLikedPosts();
-  } else {
-    document.getElementById("reported").style.display = "block";
-    document.getElementById("posts").style.display = "none";
-    document.getElementById("liked").style.display = "none";
-
-    displayReportedPosts();
+  } else if (id === "reported") {
+    const reportedPost = posts.filter((post) => reportedPostsId.includes(post.id));
+    console.log(reportedPost)
+    showPosts(reportedPost);
   }
 };
 
 const createPost = (post) => {
-  console.log(post)
+  // console.log(post)
   const image = post.image;
   // console.log(image);
   const div = document.createElement("article");
@@ -148,16 +144,17 @@ const showPosts = (posts) => {
 };
 
 const displayLikedPosts = () => {
-  const likedPosts = getLikedPosts();
-  likedPosts.forEach((post) => {
+  showPosts(getLikedPosts());
+  posts.forEach((post) => {
     const div = createPost(post);
+    console.log(div);
     document.getElementById("liked").appendChild(div);
   });
 };
 
 const displayReportedPosts = () => {
   const reportedPosts = getReportedPosts();
-  posts.forEach((post) => {
+  reportedPosts.forEach((post) => {
     const div = createPost(post);
     document.getElementById("reported").appendChild(div);
   });
