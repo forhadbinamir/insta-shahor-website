@@ -30,6 +30,25 @@ const displayContent = (text) => {
   return text.length < 30 ? text : text.slice(0, 30) + "<span class='fw-bold'>... read more</span>";
 };
 
+// const switchTab = (id) => {
+//   if (id === "posts") {
+//     document.getElementById("posts").style.display = "grid";
+//     document.getElementById("liked").style.display = "none";
+//     document.getElementById("reported").style.display = "none";
+//     document.getElementById("accordionExample").style.display = "block";
+//     addToLiked()
+//     reportPost()
+//   } else if (id === "liked") {
+//     document.getElementById("accordionExample").style.display = "none";
+//     displayLikedPosts();
+//   } else if (id === "reported") {
+// document.getElementById("accordionExample").style.display = "none";
+//     const reportedPost = posts.filter((post) => reportedPostsId.includes(post.id));
+//     showPosts(reportedPost);
+//   }
+// };
+
+
 
 
 
@@ -42,14 +61,12 @@ const switchTab = (id) => {
     document.getElementById("liked").style.display = "block";
     document.getElementById("posts").style.display = "none";
     document.getElementById("reported").style.display = "none";
-    document.getElementById("ask-question").style.display = "none";
 
     displayLikedPosts();
   } else {
     document.getElementById("reported").style.display = "block";
     document.getElementById("posts").style.display = "none";
     document.getElementById("liked").style.display = "none";
-    document.getElementById("ask-question").style.display = "none";
 
     displayReportedPosts();
   }
@@ -152,6 +169,31 @@ const showPosts = (posts) => {
     productsContainer.appendChild(div);
   });
 };
+
+// const displayLikedPosts = () => {
+//   showPosts(getLikedPosts());
+//   posts.forEach((post) => {
+//     const div = createPost(post);
+//     console.log(div);
+//     document.getElementById("liked").appendChild(div);
+//   });
+// };
+
+// const displayReportedPosts = () => {
+//   const reportedPosts = getReportedPosts();
+//   reportedPosts.forEach((post) => {
+//     const div = createPost(post);
+//     document.getElementById("reported").appendChild(div);
+//   });
+// };
+
+// const loadPosts = async () => {
+//   let data = await fetch('../data/posts.json');
+//   posts = await data.json();
+//   showPosts(posts);
+// }
+
+// loadPosts();
 
 
 const displayLikedPosts = () => {
