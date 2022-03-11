@@ -30,21 +30,31 @@ const displayContent = (text) => {
   return text.length < 30 ? text : text.slice(0, 30) + "<span class='fw-bold'>... read more</span>";
 };
 
+
+
+
 const switchTab = (id) => {
   if (id === "posts") {
     document.getElementById("posts").style.display = "grid";
     document.getElementById("liked").style.display = "none";
     document.getElementById("reported").style.display = "none";
-    addToLiked()
-    reportPost()
   } else if (id === "liked") {
+    document.getElementById("liked").style.display = "block";
+    document.getElementById("posts").style.display = "none";
+    document.getElementById("reported").style.display = "none";
+    document.getElementById("ask-question").style.display = "none";
+
     displayLikedPosts();
-  } else if (id === "reported") {
-    const reportedPost = posts.filter((post) => reportedPostsId.includes(post.id));
-    console.log(reportedPost)
-    showPosts(reportedPost);
+  } else {
+    document.getElementById("reported").style.display = "block";
+    document.getElementById("posts").style.display = "none";
+    document.getElementById("liked").style.display = "none";
+    document.getElementById("ask-question").style.display = "none";
+
+    displayReportedPosts();
   }
 };
+
 
 const createPost = (post) => {
   // console.log(post)
@@ -143,16 +153,21 @@ const showPosts = (posts) => {
   });
 };
 
+
 const displayLikedPosts = () => {
-  showPosts(getLikedPosts());
-  posts.forEach((post) => {
+  document.getElementById('liked').innerHTML = ''
+  document.getElementById('liked').innerHTML = `<h1>Liked posts</h1>`
+  const likedPosts = getLikedPosts();
+  likedPosts.forEach((post) => {
     const div = createPost(post);
-    console.log(div);
     document.getElementById("liked").appendChild(div);
   });
 };
 
 const displayReportedPosts = () => {
+  document.getElementById('reported').innerHTML = ''
+  document.getElementById('reported').innerHTML = `<h1>Reported posts</h1>`
+
   const reportedPosts = getReportedPosts();
   reportedPosts.forEach((post) => {
     const div = createPost(post);
